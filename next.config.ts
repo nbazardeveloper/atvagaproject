@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  distDir: ".next-webpack",
+  //distDir: ".next-webpack",
 
   // Gzip/Brotli сжатие ответов
   compress: true,
