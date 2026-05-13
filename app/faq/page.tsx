@@ -32,7 +32,7 @@ export default function FaqPage() {
       </section>
 
       {/* ── STILL HAVE QUESTIONS ────────────────────────── */}
-      <section className="w-full bg-brand-black py-24 lg:py-40">
+      <section className="w-full bg-brand-charcoal py-24 lg:py-40">
         <SectionWrapper className="flex flex-col items-center text-center">
           <h2 className="max-w-xl text-brand-white">
             Still Have Questions?

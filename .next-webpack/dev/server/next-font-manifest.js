@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/nazgul/Desktop/atvagaproject_github_clone/app/layout\":[\"static/media/acaa31bcd8de99a2-s.p.woff2\",\"static/media/4c9affa5bc8f420e-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Italiana, Manrope } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
+import ClientHeader from "@/components/layout/ClientHeader";
 import Footer from "@/components/layout/Footer";
 import { SITE_NAME, SITE_DESCRIPTION } from "@/app/metadata";
 
@@ -89,7 +89,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-manrope text-brand-black antialiased">
-        <Header />
+        <ClientHeader />
         <main>{children}</main>
         <Footer />
       </body>

@@ -10,6 +10,7 @@
 @theme {
   /* Brand palette */
   --color-brand-black: #0a0a0a;
+  --color-brand-charcoal: #3a3a3c;
   --color-brand-gray: #6b6b6b;
   --color-brand-gray-light: #f2f2f2;
   --color-brand-white: #ffffff;
@@ -40,10 +41,12 @@
   *::after {
     border-radius: 0 !important;
     box-sizing: border-box;
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     /* clip prevents horizontal overflow without creating a new scroll container,
@@ -100,7 +103,7 @@
     text-decoration: none;
   }
 
-  /* Forms – open architecture: underline only, never a box */
+  /* Forms – open layout: underline only, never a box */
   button,
   input,
   textarea,
@@ -141,14 +144,12 @@
     font-weight: 700;
     letter-spacing: 0.22em;       /* Wide tracking = editorial authority */
     text-transform: uppercase;
-    transition-property: color, background-color, border-color, opacity;
-    transition-duration: 300ms;
     cursor: pointer;
     border-radius: 0;             /* Strict geometry */
     white-space: nowrap;
   }
 
-  /* ── Inputs – open architecture ──────────────────────────
+  /* ── Inputs – open layout ──────────────────────────
      Bottom border only: never a box.
   ─────────────────────────────────────────────────────────── */
   .input-underline {
@@ -161,7 +162,6 @@
     font-family: var(--font-manrope);
     color: var(--color-brand-black);
     font-size: 0.9375rem;
-    transition: border-color 300ms;
   }
 
   .input-underline::placeholder {

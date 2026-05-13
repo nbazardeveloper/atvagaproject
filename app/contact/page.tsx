@@ -32,7 +32,7 @@ export default function ContactPage() {
   return (
     <>
       {/* ── PAGE HERO ───────────────────────────────────── */}
-      <section className="w-full bg-brand-black pt-[72px]">
+      <section className="w-full bg-brand-charcoal pt-[72px]">
         <SectionWrapper className="py-24 lg:py-36">
           <span className="eyebrow">Let&apos;s Connect</span>
           <h1 className="mt-5 max-w-2xl text-brand-white">
@@ -71,7 +71,7 @@ export default function ContactPage() {
                     {href ? (
                       <a
                         href={href}
-                        className="mt-1 block font-manrope text-sm text-brand-black transition-colors hover:text-brand-pink"
+                        className="mt-1 block font-manrope text-sm text-brand-black hover:text-brand-pink"
                       >
                         {value}
                       </a>
@@ -101,7 +101,7 @@ export default function ContactPage() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-manrope text-xs font-semibold uppercase tracking-widest text-brand-gray transition-colors hover:text-brand-black"
+                    className="font-manrope text-xs font-semibold uppercase tracking-widest text-brand-gray hover:text-brand-black"
                   >
                     {label}
                   </a>

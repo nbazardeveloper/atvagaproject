@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import Button from "@/components/ui/Button";
-import LazyStickyServicesShowcase from "@/components/services/LazyStickyServicesShowcase";
+import StickyServicesShowcase from "@/components/layout/StickyServicesShowcase";
 import { homeMetadata } from "@/app/metadata";
 
 export const metadata: Metadata = homeMetadata;
@@ -20,7 +20,7 @@ const WHY_CHOOSE_ATVAGA = [
   },
   {
     title: "Technical Precision",
-    body: "Our plans are engineered for clarity, reducing contractor friction and ensuring the build stays true to the architectural intent.",
+    body: "Our plans are engineered for clarity, reducing contractor friction and ensuring the build stays true to the design vision.",
   },
   {
     title: "WA State Expertise",
@@ -56,7 +56,7 @@ const CITIES: { name: string; badge: string; description: string; src?: string }
   {
     name: "Tacoma",
     badge: "Pierce County",
-    description: "South Sound residential architecture and permit coordination for Tacoma's revitalized urban core.",
+    description: "South Sound residential design and permit coordination for Tacoma's revitalized urban core.",
   },
   {
     name: "Renton",
@@ -71,7 +71,7 @@ const CITIES: { name: string; badge: string; description: string; src?: string }
   {
     name: "Surrounding Areas",
     badge: "Greater WA",
-    description: "Permit-ready architectural services throughout greater Washington State by arrangement.",
+    description: "Permit-ready residential design services throughout greater Washington State by arrangement.",
   },
 ];
 
@@ -84,7 +84,7 @@ const PROCESS_STEPS = [
   {
     number: "02",
     title: "Concept & Design",
-    body: "Schematic drawings and design development that translate your vision into precise, beautiful architectural plans.",
+    body: "Schematic drawings and design development that translate your vision into precise, beautiful design drawings.",
   },
   {
     number: "03",
@@ -155,40 +155,49 @@ export default function HomePage() {
   return (
     <>
       {/* ── HERO ────────────────────────────────────────── */}
-      <section className="relative flex min-h-screen w-full items-end overflow-hidden bg-brand-black">
+      <section className="relative flex min-h-screen w-full items-end overflow-hidden bg-brand-charcoal">
+        <Image
+          src="/images/hero-mobil.webp"
+          alt="ATVAGA luxury residential project exterior at dusk"
+          fill
+          priority
+          sizes="(max-width: 767px) 100vw, 0px"
+          className="object-cover object-center md:hidden"
+        />
         <Image
           src="/images/hero.webp"
           alt="ATVAGA luxury residential project exterior at dusk"
           fill
           priority
-          sizes="100vw"
-          className="object-cover object-center"
+          sizes="(max-width: 767px) 0px, 100vw"
+          className="hidden object-cover object-center md:block"
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,7,7,0.22)_0%,rgba(7,7,7,0.08)_28%,rgba(7,7,7,0.24)_60%,rgba(7,7,7,0.68)_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_28%,rgba(255,177,114,0.42),transparent_34%),radial-gradient(circle_at_78%_78%,rgba(10,10,10,0.2),transparent_32%)]" />
 
-        <SectionWrapper className="relative z-10 flex min-h-screen flex-col justify-end pb-0 pt-28">
+        <SectionWrapper className="relative z-10 flex min-h-[100svh] flex-col justify-end pb-12 pt-24 md:min-h-screen md:justify-end md:pb-0 md:pt-28">
           <p className="max-w-3xl font-manrope text-xl font-light leading-tight text-brand-white md:text-[1.9rem] lg:text-[2.2rem]">
             Modern Residential Solutions.
             <br />
             Permit-Ready.
           </p>
-          <h1 className="mt-8 -mb-[0.08em] w-full whitespace-nowrap font-italiana text-[12.35vw] font-light leading-none tracking-normal text-brand-white md:text-[13.4vw] lg:text-[12.5vw] xl:text-[11.9vw]">
-            ATVAGA DESIGNS
+          <h1 className="mt-8 -mb-[0.08em] w-full font-italiana text-[18vw] font-light leading-[0.92] tracking-normal text-brand-white sm:text-[15vw] md:whitespace-nowrap md:text-[13.4vw] md:leading-none lg:text-[12.5vw] xl:text-[11.9vw]">
+            <span className="block md:inline">ATVAGA</span>{" "}
+            <span className="block md:inline">DESIGNS</span>
           </h1>
         </SectionWrapper>
       </section>
 
-      <LazyStickyServicesShowcase />
+      <StickyServicesShowcase />
 
       {/* ── VISIONARY SPACES MONOLITH ─────────────────── */}
-      <section className="relative w-full overflow-hidden bg-brand-black md:h-[calc(100svh-72px)] md:min-h-[42rem]">
+      <section className="relative w-full overflow-hidden bg-brand-charcoal md:h-[calc(100svh-72px)] md:min-h-[42rem]">
         <div className="relative h-[38vh] min-h-[16rem] w-full md:hidden">
           <Image
             src="/images/visionary/hero-visionary.webp"
             alt="Visionary residential exterior project"
             fill
-            sizes="100vw"
+            sizes="(max-width: 767px) 100vw, 0px"
             className="object-cover object-center"
           />
         </div>
@@ -197,19 +206,19 @@ export default function HomePage() {
           src="/images/visionary/hero-visionary.webp"
           alt="Visionary residential exterior project"
           fill
-          sizes="100vw"
+          sizes="(max-width: 767px) 0px, 100vw"
           className="hidden object-cover object-center md:block"
         />
         <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(10,10,10,0.1)_0%,rgba(10,10,10,0.04)_45%,rgba(10,10,10,0.18)_100%)] md:block" />
 
         <div className="relative z-10 flex w-full flex-col md:h-full md:w-[45%]">
-          <div className="bg-brand-black px-5 py-10 md:h-[63%] md:px-0 md:py-0">
+          <div className="bg-brand-charcoal px-5 py-10 md:h-[63%] md:px-0 md:py-0">
             <div className="grid h-full w-full grid-cols-1 md:grid-cols-2">
               <div className="hidden md:block" />
               <div className="flex h-full items-center md:pr-10">
                 <div className="flex max-w-xl flex-col text-left">
                   <span className="font-manrope text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-brand-gray">
-                    Residential Architecture &amp; Permit Services
+                    Residential Design &amp; Permit Services
                   </span>
                   <h2 className="mt-5 text-[clamp(3.25rem,3.6vw,3.625rem)] leading-[1.02] text-brand-white">
                     Visionary Spaces
@@ -217,8 +226,8 @@ export default function HomePage() {
                     Permit Ready
                   </h2>
                   <p className="mt-6 font-manrope text-[0.875rem] leading-relaxed tracking-normal text-brand-white/68">
-                    ATVAGA Designs provides expert architectural drafting
-                    and permit plans for homeowners and developers across
+                    ATVAGA Designs provides expert design drawings and
+                    permit plans for homeowners and developers across
                     Seattle, Bellevue, and beyond. From initial concept to
                     final city permit approval, we transform your vision into
                     aesthetic, code-compliant residential solutions.
@@ -237,7 +246,7 @@ export default function HomePage() {
                     <Button
                       variant="primary"
                       scheme="dark"
-                      className="border-brand-pink bg-brand-pink text-brand-white hover:border-brand-black hover:bg-brand-black"
+                      className="border-brand-pink bg-brand-pink text-brand-white hover:border-brand-charcoal hover:bg-brand-charcoal"
                     >
                       View Projects
                     </Button>
@@ -332,7 +341,7 @@ export default function HomePage() {
                 src="/images/services/daduesign.webp"
                 alt="ADU interior project by ATVAGA Designs"
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 78vw, 50vw"
                 className="object-cover object-center"
               />
             </div>
@@ -351,20 +360,19 @@ export default function HomePage() {
           {/* ── Right: heading + copy + text link ── */}
           <div className="flex flex-col">
             <h2 className="text-brand-black">
-              Modern ADU/DADU Design &amp;
-              <br />
-              Permit Solutions
+              <span className="block whitespace-nowrap">Modern ADU/DADU Design &amp;</span>
+              <span className="block whitespace-nowrap">Permit Solutions</span>
             </h2>
             <p className="mt-6 font-manrope text-sm leading-relaxed text-brand-gray">
               ATVAGA Designs specializes in detached and attached ADU
               solutions throughout Washington State. We handle the entire
-              lifecycle of your project—from site analysis and architectural
+              lifecycle of your project—from site analysis and design
               drafting to engineering coordination and city submittals.
             </p>
             <div className="mt-10">
               <Link
                 href="/portfolio"
-                className="font-manrope text-[0.65rem] font-bold uppercase tracking-[0.22em] text-brand-pink transition-colors duration-300 hover:text-brand-black"
+                className="font-manrope text-[0.65rem] font-bold uppercase tracking-[0.22em] text-brand-pink hover:text-brand-black"
               >
                 View ADU Projects
               </Link>
@@ -375,7 +383,7 @@ export default function HomePage() {
       </section>
 
       {/* ── PORTFOLIO PREVIEW ───────────────────────────── */}
-      <section className="w-full bg-brand-black py-24 lg:py-32">
+      <section className="w-full bg-brand-charcoal py-24 lg:py-32">
         <SectionWrapper>
           <div className="mb-14 flex items-end justify-between">
             <div>
@@ -383,7 +391,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/portfolio"
-              className="hidden font-manrope text-[0.65rem] font-bold uppercase tracking-[0.22em] text-brand-white/40 transition-colors duration-300 hover:text-brand-white md:block"
+              className="hidden font-manrope text-[0.65rem] font-bold uppercase tracking-[0.22em] text-brand-white/40 hover:text-brand-white md:block"
             >
               View All Projects →
             </Link>
@@ -397,9 +405,9 @@ export default function HomePage() {
                     alt={title}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover object-center"
                   />
-                  <div className="absolute inset-0 bg-brand-black/25 transition-opacity duration-300 group-hover:bg-brand-black/10" />
+                  <div className="absolute inset-0 bg-brand-black/25 group-hover:bg-brand-black/10" />
                   <div className="absolute left-4 top-4 border border-brand-pink/50 bg-brand-black/60 px-3 py-1">
                     <span className="font-manrope text-[0.58rem] font-semibold uppercase tracking-widest text-brand-pink">
                       {type}
@@ -407,7 +415,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="mt-5">
-                  <h3 className="font-italiana text-[1.45rem] leading-snug text-brand-white transition-colors duration-300 group-hover:text-brand-pink">
+                  <h3 className="font-italiana text-[1.45rem] leading-snug text-brand-white group-hover:text-brand-pink">
                     {title}
                   </h3>
                   <p className="mt-1 font-manrope text-[0.72rem] uppercase tracking-widest text-brand-gray">
@@ -435,18 +443,18 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Scrollable carousel — starts at page margin, bleeds right */}
-        <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [touch-action:pan-x] snap-x snap-mandatory scroll-smooth [overscroll-behavior-x:contain]">
+        <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [touch-action:pan-x] snap-x snap-mandatory [overscroll-behavior-x:contain]">
           <div className="flex gap-5 px-5 pb-2 md:gap-6 md:px-10 lg:px-20 xl:px-28">
             {CITIES.map(({ name, badge, description, src }) => (
               <article key={name} className="w-[72vw] shrink-0 snap-start sm:w-[44vw] lg:w-[calc(25%-18px)]">
                 {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-brand-gray-light">
                   <Image
-                    src={src ?? "/images/hero.webp"}
-                    alt={`${name} architectural projects by ATVAGA`}
+                    src={src ?? "/images/serving-state/generic-city-card.jpg"}
+                    alt={`${name} residential design projects by ATVAGA`}
                     fill
                     sizes="(max-width: 640px) 72vw, (max-width: 1024px) 44vw, 340px"
-                    className="object-cover object-center transition-transform duration-500 hover:scale-105"
+                    className="object-cover object-center"
                   />
                   {/* Badge top-right */}
                   <div className="absolute right-3 top-3 z-10 bg-brand-black/75 px-2.5 py-1">

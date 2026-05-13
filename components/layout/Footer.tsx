@@ -4,29 +4,29 @@ import Button from "@/components/ui/Button";
 
 const FOOTER_LINKS = {
   Services: [
-    { label: "Architectural Plans", href: "/services" },
+    { label: "Design Drawings", href: "/services" },
     { label: "Permit Plans", href: "/services" },
     { label: "ADU/DADU Design", href: "/services" },
   ],
   Company: [
     { label: "Residential Remodeling", href: "/portfolio" },
     { label: "Additions", href: "/services" },
-    { label: "Privacy Policy", href: "/contact" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms & Procedure", href: "/terms" },
   ],
 };
 
 export default function Footer() {
   return (
     <footer className="w-full">
-      <section className="relative w-full overflow-hidden bg-brand-black py-24 lg:py-28">
-        <div className="absolute left-0 top-0 h-[20rem] w-[20rem] rounded-full bg-brand-white/[0.03] blur-0" />
+      <section className="relative w-full overflow-hidden bg-brand-charcoal py-24 lg:py-28">
         <SectionWrapper>
           <div className="relative flex flex-col items-center text-center">
             <div className="max-w-3xl">
               <h2 className="text-brand-white">READY TO START?</h2>
               <p className="mt-5 max-w-2xl font-manrope text-[1.05rem] leading-[1.65] text-brand-white/68">
                 Transform your residential goals into detailed, permit-ready
-                architectural plans. Let&apos;s discuss your project today.
+                design drawings. Let&apos;s discuss your project today.
               </p>
             </div>
 
@@ -59,7 +59,7 @@ export default function Footer() {
                 ATVAGA
               </p>
               <p className="mt-6 max-w-[16rem] font-manrope text-[1rem] leading-[1.75] text-brand-gray">
-                Technical precision meets architectural elegance. Specializing in
+                Technical precision meets refined residential design. Specializing in
                 permit-ready drafting for Washington State.
               </p>
             </div>
@@ -74,7 +74,7 @@ export default function Footer() {
                     <li key={label}>
                       <Link
                         href={href}
-                        className="font-manrope text-[1rem] text-brand-gray underline-offset-4 transition-colors hover:text-brand-black hover:underline"
+                        className="font-manrope text-[1rem] text-brand-gray underline-offset-4 hover:text-brand-black hover:underline"
                       >
                         {label}
                       </Link>
@@ -89,8 +89,6 @@ export default function Footer() {
                 Office
               </h3>
               <div className="mt-5 space-y-1 font-manrope text-[1rem] leading-[1.75] text-brand-gray">
-                <p>1200 Architecture Ave</p>
-                <p>Seattle, WA 98101</p>
                 <p>Mon - Fri: 9am - 5pm</p>
               </div>
             </div>
@@ -101,7 +99,7 @@ export default function Footer() {
       <div className="w-full border-t border-brand-black/8 py-6">
         <SectionWrapper>
           <p className="font-manrope text-[0.72rem] uppercase tracking-[0.16em] text-brand-gray">
-            © {new Date().getFullYear()} ATVAGA Designs. Architectural Drafting &amp; Permit Services in Washington State.
+            © {new Date().getFullYear()} ATVAGA Designs. Design Drawings &amp; Permit Services in Washington State.
           </p>
         </SectionWrapper>
       </div>

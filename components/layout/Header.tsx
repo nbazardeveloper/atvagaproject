@@ -39,7 +39,7 @@ export default function Header() {
   return (
     <header
       className={[
-        "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-50 w-full",
         isTransparent
           ? "bg-transparent"
           : "bg-brand-white shadow-[0_1px_0_0_rgba(10,10,10,0.08)]",
@@ -62,7 +62,7 @@ export default function Header() {
           <div className="hidden items-center gap-5 md:flex">
             <Link
               href="/contact"
-              className="btn-base border border-brand-pink bg-brand-pink px-6 py-3 text-[0.65rem] text-brand-white transition-colors duration-200 hover:border-brand-white hover:bg-brand-white hover:text-brand-black"
+              className="btn-base border border-brand-pink bg-brand-pink px-6 py-3 text-[0.65rem] text-brand-white hover:border-brand-white hover:bg-brand-white hover:text-brand-black"
             >
               Start Your Project
             </Link>
@@ -74,19 +74,19 @@ export default function Header() {
             >
               <span
                 className={[
-                  "block h-px w-6 bg-current transition-transform duration-300",
+                  "block h-px w-6 bg-current",
                   isMenuVisible ? "translate-y-[7px] rotate-45" : "",
                 ].join(" ")}
               />
               <span
                 className={[
-                  "block h-px bg-current transition-all duration-300",
-                  isMenuVisible ? "w-6 opacity-0" : "w-4",
+                  "block h-px bg-current",
+                  isMenuVisible ? "w-6 bg-transparent" : "w-4",
                 ].join(" ")}
               />
               <span
                 className={[
-                  "block h-px w-6 bg-current transition-transform duration-300",
+                  "block h-px w-6 bg-current",
                   isMenuVisible ? "-translate-y-[7px] -rotate-45" : "",
                 ].join(" ")}
               />
@@ -99,7 +99,7 @@ export default function Header() {
                 key={href}
                 href={href}
                 className={[
-                  "font-manrope text-[0.7rem] font-semibold uppercase tracking-widest transition-colors duration-200",
+                  "font-manrope text-[0.7rem] font-semibold uppercase tracking-widest",
                   "text-brand-gray hover:text-brand-black",
                   pathname === href ? "text-brand-black" : "",
                 ].join(" ")}
@@ -109,7 +109,7 @@ export default function Header() {
             ))}
             <Link
               href="/contact"
-              className="btn-base rounded-none border border-brand-black bg-brand-black px-6 py-3 text-[0.65rem] text-brand-white transition-colors duration-200 hover:border-brand-pink hover:bg-brand-pink"
+              className="btn-base rounded-none border border-brand-charcoal bg-brand-charcoal px-6 py-3 text-[0.65rem] text-brand-white hover:border-brand-pink hover:bg-brand-pink"
             >
               Get a Quote
             </Link>
@@ -119,7 +119,7 @@ export default function Header() {
         <div className="flex items-center gap-3 md:hidden">
           <Link
             href="/contact"
-            className="btn-base border border-brand-pink bg-brand-pink px-3 py-2 text-[0.55rem] text-brand-white transition-colors duration-200 hover:border-brand-white hover:bg-brand-white hover:text-brand-black"
+            className="btn-base border border-brand-pink bg-brand-pink px-3 py-2 text-[0.55rem] text-brand-white hover:border-brand-white hover:bg-brand-white hover:text-brand-black"
           >
             Request a Quote
           </Link>
@@ -136,19 +136,19 @@ export default function Header() {
           >
             <span
               className={[
-                "block h-px w-6 bg-current transition-transform duration-300",
+                "block h-px w-6 bg-current",
                 isMenuVisible ? "translate-y-[7px] rotate-45" : "",
               ].join(" ")}
             />
             <span
               className={[
-                "block h-px bg-current transition-all duration-300",
-                isMenuVisible ? "w-6 opacity-0" : "w-4",
+                "block h-px bg-current",
+                isMenuVisible ? "w-6 bg-transparent" : "w-4",
               ].join(" ")}
             />
             <span
               className={[
-                "block h-px w-6 bg-current transition-transform duration-300",
+                "block h-px w-6 bg-current",
                 isMenuVisible ? "-translate-y-[7px] -rotate-45" : "",
               ].join(" ")}
             />
@@ -159,9 +159,9 @@ export default function Header() {
       {/* Mobile drawer */}
       <div
         className={[
-          "overflow-hidden transition-all duration-500",
+          "overflow-hidden",
           isTransparent
-            ? "bg-brand-black/75 backdrop-blur-md"
+            ? "bg-brand-charcoal/75 backdrop-blur-md"
             : "bg-brand-white md:hidden",
           isMenuVisible ? "max-h-screen py-6" : "max-h-0",
         ].join(" ")}
@@ -176,7 +176,7 @@ export default function Header() {
               href={href}
               onClick={() => setMenuOpen(false)}
               className={[
-                "border-b py-4 font-manrope text-[0.7rem] font-semibold uppercase tracking-widest transition-colors duration-200",
+                "border-b py-4 font-manrope text-[0.7rem] font-semibold uppercase tracking-widest",
                 isTransparent
                   ? "border-white/15 text-brand-white/80 hover:text-brand-white"
                   : "border-brand-gray-light text-brand-black hover:text-brand-pink",
@@ -193,7 +193,7 @@ export default function Header() {
               "btn-base mt-4 w-full rounded-none border text-center text-[0.65rem] tracking-widest",
               isTransparent
                 ? "border-brand-white bg-brand-white text-brand-black"
-                : "border-brand-black bg-brand-black text-brand-white",
+                : "border-brand-charcoal bg-brand-charcoal text-brand-white",
             ].join(" ")}
           >
             {isTransparent ? "Start Your Project" : "Get a Quote"}

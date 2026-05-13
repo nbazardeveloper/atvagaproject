@@ -9,6 +9,7 @@ import type { Config } from "tailwindcss";
  *
  * Brand palette:
  *   brand-black      #0A0A0A
+ *   brand-charcoal   #3A3A3C
  *   brand-gray       #6B6B6B
  *   brand-gray-light #F2F2F2
  *   brand-white      #FFFFFF
@@ -24,6 +25,7 @@ const config: Config = {
     extend: {
       colors: {
         "brand-black": "#0A0A0A",
+        "brand-charcoal": "#3A3A3C",
         "brand-gray": "#6B6B6B",
         "brand-gray-light": "#F2F2F2",
         "brand-white": "#FFFFFF",

@@ -41,7 +41,7 @@ export default function PortfolioClient() {
   return (
     <>
       {/* ── PAGE HERO ───────────────────────────────────── */}
-      <section className="w-full bg-brand-black pt-[72px]">
+      <section className="w-full bg-brand-charcoal pt-[72px]">
         <SectionWrapper className="py-24 lg:py-36">
           <span className="eyebrow">Our Work</span>
           <h1 className="mt-5 max-w-2xl text-brand-white">
@@ -71,9 +71,9 @@ export default function PortfolioClient() {
                 aria-selected={active === cat}
                 onClick={() => setActive(cat)}
                 className={[
-                  "font-manrope px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-widest transition-colors duration-200 rounded-none",
+                  "font-manrope px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-widest rounded-none",
                   active === cat
-                    ? "bg-brand-black text-brand-white"
+                    ? "bg-brand-charcoal text-brand-white"
                     : "bg-transparent text-brand-gray border border-brand-gray-light hover:border-brand-black hover:text-brand-black",
                 ].join(" ")}
               >
@@ -90,7 +90,7 @@ export default function PortfolioClient() {
                 className="group flex flex-col"
               >
                 <div className="overflow-hidden">
-                  <div className="transition-transform duration-500 group-hover:scale-[1.03]">
+                  <div>
                     <ImagePlaceholder
                       label={project.title}
                       aspectRatio="aspect-[3/2]"
@@ -113,7 +113,7 @@ export default function PortfolioClient() {
                     <span className="font-manrope text-xs text-brand-gray">
                       {project.sqft} sq ft · {project.category}
                     </span>
-                    <span className="font-manrope text-[0.65rem] font-semibold uppercase tracking-widest text-brand-black opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                    <span className="font-manrope text-[0.65rem] font-semibold uppercase tracking-widest text-brand-black">
                       View →
                     </span>
                   </div>

@@ -190,7 +190,7 @@ export default function ContactForm() {
       <div>
         <button
           type="submit"
-          className="btn-base w-full rounded-none bg-brand-black tracking-widest text-brand-white transition-colors hover:bg-brand-pink md:w-auto md:min-w-[220px]"
+          className="btn-base w-full rounded-none bg-brand-charcoal tracking-widest text-brand-white hover:bg-brand-pink md:w-auto md:min-w-[220px]"
         >
           Send Message
         </button>

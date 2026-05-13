@@ -94,7 +94,7 @@ const FAQ_DATA: FaqCategory[] = [
       {
         question: "What is included in a 3D rendering package?",
         answer:
-          "Our standard package includes three photorealistic still renders of your space (from client-approved viewpoints), one revision round, and high-resolution files delivered in JPEG and PDF formats. Additional renders, animations, and 360° panoramas are available as add-ons.",
+          "Our standard package includes three photorealistic still renders of your space (from client-approved viewpoints), one revision round, and high-resolution files delivered in JPEG and PDF formats. Additional renders and 360° panoramas are available as add-ons.",
       },
       {
         question: "How accurate are the renders compared to the finished space?",
@@ -130,7 +130,7 @@ function AccordionItem({ question, answer, isOpen, onToggle }: AccordionItemProp
         </span>
         <span
           className={[
-            "mt-1 shrink-0 text-brand-pink transition-transform duration-300",
+            "mt-1 shrink-0 text-brand-pink",
             isOpen ? "rotate-45" : "",
           ].join(" ")}
           aria-hidden="true"
@@ -142,7 +142,7 @@ function AccordionItem({ question, answer, isOpen, onToggle }: AccordionItemProp
       </button>
       <div
         className={[
-          "overflow-hidden transition-all duration-300",
+          "overflow-hidden",
           isOpen ? "max-h-96 pb-5" : "max-h-0",
         ].join(" ")}
       >
@@ -180,7 +180,7 @@ export default function FaqAccordion() {
               <button
                 onClick={() => setActiveCategory(category)}
                 className={[
-                  "w-full rounded-none border-b border-brand-gray-light py-3 text-left font-manrope text-sm transition-colors duration-200",
+                  "w-full rounded-none border-b border-brand-gray-light py-3 text-left font-manrope text-sm",
                   activeCategory === category
                     ? "font-semibold text-brand-black border-b-brand-black border-b-2"
                     : "text-brand-gray hover:text-brand-black",

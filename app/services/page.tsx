@@ -107,7 +107,7 @@ export default function ServicesPage() {
               <article
                 key={title}
                 className={[
-                  "group flex flex-col border-brand-gray/20 bg-brand-gray-light p-10 transition-colors duration-300 hover:bg-brand-black",
+                  "group flex flex-col border-brand-gray/20 bg-brand-gray-light p-10 hover:bg-brand-black",
                   i % 3 !== 2 ? "lg:border-r" : "",
                   i < 3 ? "border-b" : "",
                   i % 2 === 0 ? "md:border-r" : "",
@@ -116,16 +116,16 @@ export default function ServicesPage() {
                 <div className="mb-6 text-brand-pink">
                   {icon}
                 </div>
-                <h2 className="font-italiana mb-3 text-xl text-brand-black transition-colors duration-300 group-hover:text-brand-white">
+                <h2 className="font-italiana mb-3 text-xl text-brand-black group-hover:text-brand-white">
                   {title}
                 </h2>
-                <p className="font-manrope text-sm leading-relaxed text-brand-gray transition-colors duration-300 group-hover:text-brand-white/60">
+                <p className="font-manrope text-sm leading-relaxed text-brand-gray group-hover:text-brand-white/60">
                   {description}
                 </p>
                 <div className="mt-6">
                   <Link
                     href="/contact"
-                    className="font-manrope text-[0.65rem] font-semibold uppercase tracking-widest text-brand-pink transition-colors duration-300 group-hover:text-brand-pink"
+                    className="font-manrope text-[0.65rem] font-semibold uppercase tracking-widest text-brand-pink group-hover:text-brand-pink"
                   >
                     Enquire →
                   </Link>
@@ -137,7 +137,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── 3D RENDERING BANNER ─────────────────────────── */}
-      <section className="w-full bg-brand-black py-24 lg:py-40">
+      <section className="w-full bg-brand-charcoal py-24 lg:py-40">
         <SectionWrapper className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
           <div className="flex flex-col">
             <span className="eyebrow">See It Before It Exists</span>
