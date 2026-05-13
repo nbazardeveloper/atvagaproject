@@ -16,21 +16,25 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isTransparent = isHome && !scrolled;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      const nextScrolled = window.scrollY > 60;
+      setScrolled(nextScrolled);
+
+      if (nextScrolled) {
+        setMenuOpen(false);
+      }
+    };
+
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (!isHome || scrolled) {
-      setMenuOpen(false);
-    }
-  }, [isHome, scrolled]);
-
   // On non-home pages, always use the solid white style
-  const isTransparent = isHome && !scrolled;
+  const isMenuVisible = isTransparent && menuOpen;
 
   return (
     <header
@@ -65,25 +69,25 @@ export default function Header() {
             <button
               className="flex flex-col items-end justify-center gap-[5px] text-brand-white"
               onClick={() => setMenuOpen((open) => !open)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
+              aria-label={isMenuVisible ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuVisible}
             >
               <span
                 className={[
                   "block h-px w-6 bg-current transition-transform duration-300",
-                  menuOpen ? "translate-y-[7px] rotate-45" : "",
+                  isMenuVisible ? "translate-y-[7px] rotate-45" : "",
                 ].join(" ")}
               />
               <span
                 className={[
                   "block h-px bg-current transition-all duration-300",
-                  menuOpen ? "w-6 opacity-0" : "w-4",
+                  isMenuVisible ? "w-6 opacity-0" : "w-4",
                 ].join(" ")}
               />
               <span
                 className={[
                   "block h-px w-6 bg-current transition-transform duration-300",
-                  menuOpen ? "-translate-y-[7px] -rotate-45" : "",
+                  isMenuVisible ? "-translate-y-[7px] -rotate-45" : "",
                 ].join(" ")}
               />
             </button>
@@ -127,25 +131,25 @@ export default function Header() {
               isTransparent ? "text-brand-white" : "text-brand-black",
             ].join(" ")}
             onClick={() => setMenuOpen((o) => !o)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
+            aria-label={isMenuVisible ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuVisible}
           >
             <span
               className={[
                 "block h-px w-6 bg-current transition-transform duration-300",
-                menuOpen ? "translate-y-[7px] rotate-45" : "",
+                isMenuVisible ? "translate-y-[7px] rotate-45" : "",
               ].join(" ")}
             />
             <span
               className={[
                 "block h-px bg-current transition-all duration-300",
-                menuOpen ? "w-6 opacity-0" : "w-4",
+                isMenuVisible ? "w-6 opacity-0" : "w-4",
               ].join(" ")}
             />
             <span
               className={[
                 "block h-px w-6 bg-current transition-transform duration-300",
-                menuOpen ? "-translate-y-[7px] -rotate-45" : "",
+                isMenuVisible ? "-translate-y-[7px] -rotate-45" : "",
               ].join(" ")}
             />
           </button>
@@ -159,7 +163,7 @@ export default function Header() {
           isTransparent
             ? "bg-brand-black/75 backdrop-blur-md"
             : "bg-brand-white md:hidden",
-          menuOpen ? "max-h-screen py-6" : "max-h-0",
+          isMenuVisible ? "max-h-screen py-6" : "max-h-0",
         ].join(" ")}
       >
         <nav

@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import Button from "@/components/ui/Button";
+import LazyStickyServicesShowcase from "@/components/services/LazyStickyServicesShowcase";
 import { homeMetadata } from "@/app/metadata";
-
-// Ленивая загрузка тяжёлого клиентского компонента — не блокирует первый рендер
-const StickyServicesShowcase = dynamic(
-  () => import("@/components/services/StickyServicesShowcase"),
-  { ssr: false }
-);
 
 export const metadata: Metadata = homeMetadata;
 
@@ -185,7 +179,7 @@ export default function HomePage() {
         </SectionWrapper>
       </section>
 
-      <StickyServicesShowcase />
+      <LazyStickyServicesShowcase />
 
       {/* ── VISIONARY SPACES MONOLITH ─────────────────── */}
       <section className="relative w-full overflow-hidden bg-brand-black md:h-[calc(100svh-72px)] md:min-h-[42rem]">

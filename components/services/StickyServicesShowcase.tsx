@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import SectionWrapper from "@/components/ui/SectionWrapper";
 
 type ShowcaseItem = {
   title: string;
