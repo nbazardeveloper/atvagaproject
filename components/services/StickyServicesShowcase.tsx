@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 
 type ShowcaseItem = {
   title: string;
@@ -182,118 +181,27 @@ function renderScene(scene: Scene, imageSrc?: string, title?: string) {
 }
 
 export default function StickyServicesShowcase() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-  const [travel, setTravel] = useState(0);
-  const [startOffset, setStartOffset] = useState(0);
-  const [cardWidth, setCardWidth] = useState(320);
-  const [gap, setGap] = useState(20);
-  // NOTE: height is applied directly to the DOM via sectionRef to avoid the
-  // SSR/CSR hydration mismatch that caused a huge empty gap below the carousel.
-  // Using useState("240vh") caused the section to grow on mount (e.g. +1487px
-  // on mobile), pushing "Visionary Spaces" far down the page.
-
-  useEffect(() => {
-    const updateMetrics = () => {
-      const section = sectionRef.current;
-      const viewport = viewportRef.current;
-
-      if (!viewport || !section) {
-        return;
-      }
-
-      const viewportWidth = viewport.clientWidth;
-      const isDesktop = window.innerWidth >= 1024;
-      const nextGap = isDesktop ? 32 : window.innerWidth >= 640 ? 24 : 20;
-      const nextCardWidth = isDesktop
-        ? (viewportWidth - nextGap * 5) / 5
-        : window.innerWidth >= 640
-          ? viewportWidth * 0.44
-          : viewportWidth * 0.72;
-      const totalTrackWidth =
-        SHOWCASE_ITEMS.length * nextCardWidth +
-        (SHOWCASE_ITEMS.length - 1) * nextGap;
-      const nextStartOffset = isDesktop
-        ? -nextCardWidth / 2
-        : Math.min(viewportWidth * 0.18, 180);
-
-      // travel must bring the last card's right edge to the viewport's right
-      // edge at progress=1. Without startOffset the cards overshoot the left.
-      const nextTravel = Math.max(
-        totalTrackWidth + nextStartOffset - viewportWidth,
-        0,
-      );
-      setGap(nextGap);
-      setCardWidth(nextCardWidth);
-      setStartOffset(nextStartOffset);
-      setTravel(nextTravel);
-      // Set height directly on DOM — bypasses React state so there is no
-      // SSR→CSR layout shift and no "growing section" side-effect.
-      section.style.height = `${Math.ceil(window.innerHeight + nextTravel)}px`;
-    };
-
-    const updateProgress = () => {
-      const section = sectionRef.current;
-
-      if (!section) {
-        return;
-      }
-
-      const rect = section.getBoundingClientRect();
-      const distance = section.offsetHeight - window.innerHeight;
-      const nextProgress = distance <= 0 ? 0 : Math.min(Math.max(-rect.top / distance, 0), 1);
-      setProgress(nextProgress);
-    };
-
-    let frameId = 0;
-    const onScrollOrResize = () => {
-      cancelAnimationFrame(frameId);
-      frameId = window.requestAnimationFrame(() => {
-        updateMetrics();
-        updateProgress();
-      });
-    };
-
-    updateMetrics();
-    updateProgress();
-
-    window.addEventListener("scroll", onScrollOrResize, { passive: true });
-    window.addEventListener("resize", onScrollOrResize);
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener("scroll", onScrollOrResize);
-      window.removeEventListener("resize", onScrollOrResize);
-    };
-  }, []);
-
   return (
-    // suppressHydrationWarning because height is set imperatively via ref after mount
-    <section ref={sectionRef} suppressHydrationWarning className="relative w-full bg-brand-white">
-      <div className="sticky top-[72px] h-[calc(100svh-72px)] overflow-hidden border-y border-brand-gray-light/70 bg-brand-white">
-        <div className="flex h-full items-center py-10 lg:py-12">
-          <div ref={viewportRef} className="flex min-h-0 w-full items-center overflow-hidden py-6 lg:py-8">
-            <div
-              className="flex items-start will-change-transform"
-              style={{
-                gap: `${gap}px`,
-                transform: `translate3d(${startOffset - progress * travel}px, 0, 0)`,
-              }}
+    <section className="relative w-full border-y border-brand-gray-light/70 bg-brand-white py-10 lg:py-12">
+      <div
+        className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [touch-action:pan-x] snap-x snap-mandatory scroll-smooth [overscroll-behavior-x:contain]"
+        aria-label="Services showcase"
+      >
+        <div className="flex items-start gap-5 px-5 py-6 md:gap-6 md:px-10 lg:px-20 lg:py-8 xl:px-28">
+          {SHOWCASE_ITEMS.map(({ title, scene, imageSrc }) => (
+            <article
+              key={title}
+              className="w-[72vw] shrink-0 snap-start sm:w-[44vw] lg:w-[calc((100vw-12rem-8rem)/5)] xl:w-[calc((100vw-14rem-8rem)/5)]"
             >
-              {SHOWCASE_ITEMS.map(({ title, scene, imageSrc }) => (
-                <article key={title} className="shrink-0" style={{ width: `${cardWidth}px` }}>
-                  <div className="relative aspect-[4/5] overflow-hidden bg-brand-black [clip-path:inset(0_round_999px_999px_0_0)]">
-                    {renderScene(scene, imageSrc, title)}
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03)_0%,rgba(255,255,255,0)_35%,rgba(0,0,0,0.08)_100%)]" />
-                  </div>
-                  <h3 className="mt-5 max-w-[14ch] font-italiana text-[1.9rem] leading-[1.06] text-brand-black lg:text-[2.2rem]">
-                    {title}
-                  </h3>
-                </article>
-              ))}
-            </div>
-          </div>
+              <div className="relative aspect-[4/5] overflow-hidden bg-brand-black [clip-path:inset(0_round_999px_999px_0_0)]">
+                {renderScene(scene, imageSrc, title)}
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03)_0%,rgba(255,255,255,0)_35%,rgba(0,0,0,0.08)_100%)]" />
+              </div>
+              <h3 className="mt-5 max-w-[14ch] font-italiana text-[1.9rem] leading-[1.06] text-brand-black lg:text-[2.2rem]">
+                {title}
+              </h3>
+            </article>
+          ))}
         </div>
       </div>
     </section>
