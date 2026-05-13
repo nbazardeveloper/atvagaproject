@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Italiana, Manrope, Spectral_SC } from "next/font/google";
+import { Italiana, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -18,13 +18,6 @@ const manrope = Manrope({
   variable: "--manrope-font",
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
-});
-
-const spectralSC = Spectral_SC({
-  weight: ["300", "400", "600"],
-  subsets: ["latin"],
-  variable: "--spectral-font",
-  display: "swap",
 });
 
 /* ── Root metadata ───────────────────────────────────── */
@@ -85,7 +78,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${italiana.variable} ${manrope.variable} ${spectralSC.variable}`}
+      className={`${italiana.variable} ${manrope.variable}`}
     >
       <head>
         <script

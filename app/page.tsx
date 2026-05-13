@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import StickyServicesShowcase from "@/components/services/StickyServicesShowcase";
+import dynamic from "next/dynamic";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import Button from "@/components/ui/Button";
 import { homeMetadata } from "@/app/metadata";
+
+// Ленивая загрузка тяжёлого клиентского компонента — не блокирует первый рендер
+const StickyServicesShowcase = dynamic(
+  () => import("@/components/services/StickyServicesShowcase"),
+  { ssr: false }
+);
 
 export const metadata: Metadata = homeMetadata;
 
@@ -28,7 +34,7 @@ const WHY_CHOOSE_ATVAGA = [
   },
 ];
 
-const CITIES = [
+const CITIES: { name: string; badge: string; description: string; src?: string }[] = [
   {
     name: "Seattle",
     badge: "King County",
@@ -435,10 +441,10 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Scrollable carousel — starts at page margin, bleeds right */}
-        <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [touch-action:pan-x] snap-x snap-mandatory scroll-smooth [overscroll-behavior-x:contain]">
           <div className="flex gap-5 px-5 pb-2 md:gap-6 md:px-10 lg:px-20 xl:px-28">
             {CITIES.map(({ name, badge, description, src }) => (
-              <article key={name} className="w-[72vw] shrink-0 sm:w-[44vw] lg:w-[calc(25%-18px)]">
+              <article key={name} className="w-[72vw] shrink-0 snap-start sm:w-[44vw] lg:w-[calc(25%-18px)]">
                 {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-brand-gray-light">
                   <Image
