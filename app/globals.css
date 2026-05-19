@@ -43,12 +43,12 @@
     box-sizing: border-box;
     animation: none !important;
     transition: none !important;
-    scroll-behavior: auto !important;
   }
 
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
     /* clip prevents horizontal overflow without creating a new scroll container,
        keeping position:sticky on descendants intact (unlike overflow-x:hidden) */
     overflow-x: clip;
@@ -61,7 +61,14 @@
     /* Generous leading keeps body copy open and premium */
     line-height: 1.8;
     font-size: 0.9375rem;           /* 15 px – precise, editorial */
+    -webkit-overflow-scrolling: touch;
     overflow-x: clip;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   /* ── Typographic scale ─────────────────────────────────────

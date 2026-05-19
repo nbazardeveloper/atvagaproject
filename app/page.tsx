@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import DeferredCityCarousel from "@/components/layout/DeferredCityCarousel";
+import DeferredStickyServicesShowcase from "@/components/layout/DeferredStickyServicesShowcase";
+import StructuredData from "@/components/seo/StructuredData";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import Button from "@/components/ui/Button";
-import StickyServicesShowcase from "@/components/layout/StickyServicesShowcase";
-import { homeMetadata } from "@/app/metadata";
+import { buildBreadcrumbSchema, homeMetadata } from "@/app/metadata";
 
 export const metadata: Metadata = homeMetadata;
 
@@ -54,24 +56,28 @@ const CITIES: { name: string; badge: string; description: string; src?: string }
     description: "Modern residential design for Redmond's tech-forward community and growing suburban neighborhoods.",
   },
   {
-    name: "Tacoma",
-    badge: "Pierce County",
-    description: "South Sound residential design and permit coordination for Tacoma's revitalized urban core.",
+    name: "Bothell",
+    badge: "North King / Snohomish",
+    src: "/images/projects/residential/Summit_at_Canyon_Park,_Bothell,_WA_view_1.webp",
+    description: "Residential design support for Bothell neighborhoods, townhome communities, and growing suburban developments.",
   },
   {
-    name: "Renton",
-    badge: "South King Co.",
-    description: "ADU/DADU design and residential additions for Renton's rapidly expanding neighborhoods.",
-  },
-  {
-    name: "Everett",
+    name: "Edmonds",
     badge: "Snohomish County",
-    description: "North Sound residential services with deep knowledge of Snohomish County code requirements.",
+    src: "/images/projects/residential/Town_Squire_Condominiums,__Edmonds,_WA_(1).webp",
+    description: "Coastal residential design drawings and permit planning for Edmonds homes and condominium properties.",
   },
   {
-    name: "Surrounding Areas",
-    badge: "Greater WA",
-    description: "Permit-ready residential design services throughout greater Washington State by arrangement.",
+    name: "Mukilteo",
+    badge: "Puget Sound",
+    src: "/images/projects/residential/Losvar_Condos_Mukilteo,_WA.webp",
+    description: "Permit-ready residential design support for Mukilteo waterfront homes, condos, and renovation projects.",
+  },
+  {
+    name: "Sammamish",
+    badge: "Eastside",
+    src: "/images/projects/residential/Sammamish_WA.webp",
+    description: "Custom residential design drawings for Sammamish homes, additions, and carefully detailed remodels.",
   },
 ];
 
@@ -150,10 +156,42 @@ const TESTIMONIALS = [
   },
 ];
 
+const homePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "ATVAGA Designs Home",
+  description: homeMetadata.description,
+  url: "https://atvagadesigns.com/",
+  isPartOf: {
+    "@id": "https://atvagadesigns.com#website",
+  },
+  about: [
+    {
+      "@type": "Service",
+      name: "Permit-ready residential design drawings",
+    },
+    {
+      "@type": "Service",
+      name: "ADU and DADU design",
+    },
+    {
+      "@type": "Service",
+      name: "Home additions and remodels",
+    },
+  ],
+};
+
 /* ── Page ──────────────────────────────────────────── */
 export default function HomePage() {
   return (
     <>
+      <StructuredData
+        data={[
+          homePageSchema,
+          buildBreadcrumbSchema([{ name: "Home", path: "/" }]),
+        ]}
+      />
+
       {/* ── HERO ────────────────────────────────────────── */}
       <section className="relative flex min-h-screen w-full items-end overflow-hidden bg-brand-charcoal">
         <Image
@@ -177,9 +215,9 @@ export default function HomePage() {
 
         <SectionWrapper className="relative z-10 flex min-h-[100svh] flex-col justify-end pb-12 pt-24 md:min-h-screen md:justify-end md:pb-0 md:pt-28">
           <p className="max-w-3xl font-manrope text-xl font-light leading-tight text-brand-white md:text-[1.9rem] lg:text-[2.2rem]">
-            Modern Residential Solutions.
+            RESIDENTIAL DESIGN &amp; PERMIT PLANS
             <br />
-            Permit-Ready.
+            SEATTLE • BELLEVUE • WASHINGTON STATE
           </p>
           <h1 className="mt-8 -mb-[0.08em] w-full font-italiana text-[18vw] font-light leading-[0.92] tracking-normal text-brand-white sm:text-[15vw] md:whitespace-nowrap md:text-[13.4vw] md:leading-none lg:text-[12.5vw] xl:text-[11.9vw]">
             <span className="block md:inline">ATVAGA</span>{" "}
@@ -188,7 +226,7 @@ export default function HomePage() {
         </SectionWrapper>
       </section>
 
-      <StickyServicesShowcase />
+      <DeferredStickyServicesShowcase />
 
       {/* ── VISIONARY SPACES MONOLITH ─────────────────── */}
       <section className="relative w-full overflow-hidden bg-brand-charcoal md:h-[calc(100svh-72px)] md:min-h-[42rem]">
@@ -433,49 +471,7 @@ export default function HomePage() {
         </SectionWrapper>
       </section>
 
-      {/* ── CITY CAROUSEL ───────────────────────────────── */}
-      <section className="w-full overflow-hidden bg-brand-white py-24 lg:py-32">
-        {/* Heading — aligned with page margins */}
-        <SectionWrapper className="mb-14">
-          <h2 className="text-center text-brand-black">
-            Serving Washington State
-          </h2>
-        </SectionWrapper>
-
-        {/* Scrollable carousel — starts at page margin, bleeds right */}
-        <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [touch-action:pan-x] snap-x snap-mandatory [overscroll-behavior-x:contain]">
-          <div className="flex gap-5 px-5 pb-2 md:gap-6 md:px-10 lg:px-20 xl:px-28">
-            {CITIES.map(({ name, badge, description, src }) => (
-              <article key={name} className="w-[72vw] shrink-0 snap-start sm:w-[44vw] lg:w-[calc(25%-18px)]">
-                {/* Image */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-brand-gray-light">
-                  <Image
-                    src={src ?? "/images/serving-state/generic-city-card.jpg"}
-                    alt={`${name} residential design projects by ATVAGA`}
-                    fill
-                    sizes="(max-width: 640px) 72vw, (max-width: 1024px) 44vw, 340px"
-                    className="object-cover object-center"
-                  />
-                  {/* Badge top-right */}
-                  <div className="absolute right-3 top-3 z-10 bg-brand-black/75 px-2.5 py-1">
-                    <span className="font-manrope text-[0.58rem] font-semibold uppercase tracking-widest text-brand-white">
-                      {badge}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Text */}
-                <h3 className="mt-4 font-italiana text-[1.55rem] leading-snug text-brand-black">
-                  {name}
-                </h3>
-                <p className="mt-2 font-manrope text-[0.8rem] leading-relaxed text-brand-gray">
-                  {description}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <DeferredCityCarousel cities={CITIES} />
 
       {/* ── TESTIMONIALS ────────────────────────────────── */}
       <section className="w-full bg-brand-gray-light py-24 lg:py-32">

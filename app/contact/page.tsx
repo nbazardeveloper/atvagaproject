@@ -1,36 +1,69 @@
 import type { Metadata } from "next";
+import StructuredData from "@/components/seo/StructuredData";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { contactMetadata } from "@/app/metadata";
+import {
+  SERVICE_AREAS,
+  SITE_EMAIL,
+  buildBreadcrumbSchema,
+  contactMetadata,
+} from "@/app/metadata";
 import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = contactMetadata;
 
 const CONTACT_INFO = [
   {
-    label: "Studio",
-    value: "123 Design Avenue, New York, NY 10001",
+    label: "Service Area",
+    value: "Washington State, including Seattle, Bellevue, Kirkland, Redmond, Tacoma, Renton, and Everett.",
     href: null,
   },
   {
-    label: "Phone",
-    value: "+1 (555) 000-0000",
-    href: "tel:+15550000000",
+    label: "Email",
+    value: SITE_EMAIL,
+    href: `mailto:${SITE_EMAIL}`,
   },
   {
-    label: "Email",
-    value: "hello@atvagadesigns.com",
-    href: "mailto:hello@atvagadesigns.com",
+    label: "Consultations",
+    value: "Project inquiries are handled by appointment for ADUs, additions, remodels, and permit-ready drawing sets.",
+    href: null,
   },
   {
     label: "Hours",
-    value: "Mon – Fri, 9:00 AM – 6:00 PM EST",
+    value: "Mon - Fri, 9:00 AM - 6:00 PM PT",
     href: null,
   },
 ];
 
+const contactPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Contact ATVAGA Designs",
+  description: contactMetadata.description,
+  url: "https://atvagadesigns.com/contact",
+  about: {
+    "@id": "https://atvagadesigns.com#organization",
+  },
+  mainEntity: {
+    "@type": "Organization",
+    name: "ATVAGA Designs",
+    email: SITE_EMAIL,
+    areaServed: [...SERVICE_AREAS],
+  },
+};
+
 export default function ContactPage() {
   return (
     <>
+      <StructuredData
+        data={[
+          contactPageSchema,
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ]),
+        ]}
+      />
+
       {/* ── PAGE HERO ───────────────────────────────────── */}
       <section className="w-full bg-brand-charcoal pt-[72px]">
         <SectionWrapper className="py-24 lg:py-36">

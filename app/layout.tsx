@@ -3,7 +3,18 @@ import { Italiana, Manrope } from "next/font/google";
 import "./globals.css";
 import ClientHeader from "@/components/layout/ClientHeader";
 import Footer from "@/components/layout/Footer";
-import { SITE_NAME, SITE_DESCRIPTION } from "@/app/metadata";
+import StructuredData from "@/components/seo/StructuredData";
+import {
+  BASE_URL,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_TITLE,
+  DEFAULT_TWITTER_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+  organizationSchema,
+  websiteSchema,
+} from "@/app/metadata";
 
 /* ── Google Fonts via next/font ──────────────────────── */
 const italiana = Italiana({
@@ -17,57 +28,59 @@ const manrope = Manrope({
   subsets: ["latin"],
   variable: "--manrope-font",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "600", "700"],
 });
 
 /* ── Root metadata ───────────────────────────────────── */
 export const metadata: Metadata = {
   title: {
-    default: SITE_NAME,
+    default: DEFAULT_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  metadataBase: new URL("https://atvagadesigns.com"),
-};
-
-/* ── JSON-LD: LocalBusiness Schema ──────────────────── */
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": "https://atvagadesigns.com",
-  name: SITE_NAME,
-  description: SITE_DESCRIPTION,
-  url: "https://atvagadesigns.com",
-  logo: "https://atvagadesigns.com/logo.png",
-  image: "https://atvagadesigns.com/og-default.jpg",
-  telephone: "+1-555-000-0000",
-  email: "hello@atvagadesigns.com",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "123 Design Avenue",
-    addressLocality: "New York",
-    addressRegion: "NY",
-    postalCode: "10001",
-    addressCountry: "US",
+  metadataBase: SITE_URL,
+  applicationName: SITE_NAME,
+  alternates: {
+    canonical: BASE_URL,
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "40.7128",
-    longitude: "-74.0060",
+  authors: [{ name: SITE_NAME, url: BASE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  referrer: "origin-when-cross-origin",
+  category: "Residential design and permit drawings",
+  openGraph: {
+    title: `${DEFAULT_TITLE} | ${SITE_NAME}`,
+    description: SITE_DESCRIPTION,
+    url: BASE_URL,
+    siteName: SITE_NAME,
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} residential design drawings and permit services`,
+      },
+    ],
   },
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "09:00",
-      closes: "18:00",
+  twitter: {
+    card: "summary_large_image",
+    title: `${DEFAULT_TITLE} | ${SITE_NAME}`,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_TWITTER_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
-  ],
-  sameAs: [
-    "https://instagram.com/atvagadesigns",
-    "https://pinterest.com/atvagadesigns",
-  ],
-  priceRange: "$$$",
+  },
 };
 
 export default function RootLayout({
@@ -81,12 +94,7 @@ export default function RootLayout({
       className={`${italiana.variable} ${manrope.variable}`}
     >
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessSchema),
-          }}
-        />
+        <StructuredData data={[organizationSchema, websiteSchema]} />
       </head>
       <body className="font-manrope text-brand-black antialiased">
         <ClientHeader />

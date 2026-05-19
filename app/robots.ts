@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { BASE_URL } from "@/app/metadata";
 
 export const dynamic = "force-static";
 
@@ -11,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/_next/"],
       },
     ],
-    sitemap: "https://atvagadesigns.com/sitemap.xml",
-    host: "https://atvagadesigns.com",
+    sitemap: `${BASE_URL}/sitemap.xml`,
+    host: BASE_URL,
   };
 }

@@ -7,6 +7,7 @@ const FOOTER_LINKS = {
     { label: "Design Drawings", href: "/services" },
     { label: "Permit Plans", href: "/services" },
     { label: "ADU/DADU Design", href: "/services" },
+    { label: "3D Rendering", href: "/3d-rendering" },
   ],
   Company: [
     { label: "Residential Remodeling", href: "/portfolio" },

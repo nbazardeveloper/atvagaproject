@@ -1,9 +1,8 @@
+import type { Metadata } from "next";
 import SectionWrapper from "@/components/ui/SectionWrapper";
+import { privacyMetadata } from "@/app/metadata";
 
-export const metadata = {
-  title: "Privacy Policy",
-  description: "Privacy Policy for ATVAGA LLC."
-};
+export const metadata: Metadata = privacyMetadata;
 
 export default function PrivacyPage() {
   return (

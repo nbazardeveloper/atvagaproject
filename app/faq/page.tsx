@@ -1,15 +1,42 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import StructuredData from "@/components/seo/StructuredData";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import Button from "@/components/ui/Button";
-import { faqMetadata } from "@/app/metadata";
+import { buildBreadcrumbSchema, faqMetadata } from "@/app/metadata";
 import FaqAccordion from "./FaqAccordion";
+import { FAQ_DATA } from "./faqData";
 
 export const metadata: Metadata = faqMetadata;
+
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_DATA.flatMap(({ items }) =>
+    items.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: answer,
+      },
+    }))
+  ),
+};
 
 export default function FaqPage() {
   return (
     <>
+      <StructuredData
+        data={[
+          faqPageSchema,
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "FAQ", path: "/faq" },
+          ]),
+        ]}
+      />
+
       {/* ── PAGE HERO ───────────────────────────────────── */}
       <section className="w-full bg-brand-gray-light pt-[72px]">
         <SectionWrapper className="py-24 lg:py-36">

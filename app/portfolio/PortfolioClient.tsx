@@ -1,33 +1,92 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 
-const CATEGORIES = ["All", "Residential", "Commercial", "Hospitality", "3D Renders"] as const;
+const CATEGORIES = ["All", "Residential", "Commercial", "3D Renders"] as const;
 type Category = (typeof CATEGORIES)[number];
 
 interface Project {
   id: number;
   title: string;
-  location: string;
   category: Exclude<Category, "All">;
-  sqft: string;
-  year: string;
+  imageSrc: string;
+}
+
+const RESIDENTIAL_IMAGE_SRCS = [
+  "/images/projects/residential/All-Seasons-Park-City.webp",
+  "/images/projects/residential/Almond-Street-Condos.webp",
+  "/images/projects/residential/Bothell-WA.webp",
+  "/images/projects/residential/Breakwater-Condos-WA.webp",
+  "/images/projects/residential/Carlisle-Creek-Condominiums-WA.webp",
+  "/images/projects/residential/Cedars-Condominiums-WA.webp",
+  "/images/projects/residential/Cooper’s-Bay.webp",
+  "/images/projects/residential/Crest View-Condominiums-Park-City-WA.webp",
+  "/images/projects/residential/Crest-Road-Ridgewood-NJ.webp",
+  "/images/projects/residential/Eaglecrest_Condominiums_1.webp",
+  "/images/projects/residential/Eastlake_WA.webp",
+  "/images/projects/residential/Fir_Ridge_II_1.webp",
+  "/images/projects/residential/Forest_Isle,_Edmonds,_WA_(2).webp",
+  "/images/projects/residential/Greenbrooke,_WA_(2).webp",
+  "/images/projects/residential/Hidden_Creek,_Park_City,_UT_1.webp",
+  "/images/projects/residential/Kirkwood_Condominiums,_Kirkland_WA_(1).webp",
+  "/images/projects/residential/Madison_Arbor_2.webp",
+  "/images/projects/residential/Modern_Villa_Pena,_Atlanta,_GA_(1).webp",
+  "/images/projects/residential/Oakridge_Condominiums__2.webp",
+  "/images/projects/residential/Privilege_Resort,_CA.webp",
+  "/images/projects/residential/Redmond,_WA.webp",
+  "/images/projects/residential/Seattle2_WA.webp",
+  "/images/projects/residential/Seattle_WA.webp",
+  "/images/projects/residential/Touraine_Condos_WA.webp",
+  "/images/projects/residential/Upper_Saddle_River,_NJ.webp",
+  "/images/projects/residential/Windsor_Townhomes,_WA_(1).webp",
+  "/images/projects/residential/Woodglen_Condominiums_Cam_1.webp",
+  "/images/projects/residential/Сanaan_Place,_Allendale,_NJ.webp",
+] as const;
+
+const COMMERCIAL_IMAGE_SRCS = [
+  "/images/projects/сommercial/Port_of_Edmonds,_WA.webp",
+] as const;
+
+const RENDER_IMAGE_SRCS = [
+  "/images/projects/3d-renders/Upper_Saddle_River,_NJ.webp",
+] as const;
+
+function formatProjectTitle(imageSrc: string) {
+  const fileName = imageSrc.split("/").pop()?.replace(/\.webp$/i, "") ?? "Project";
+
+  return fileName
+    .replace(/_/g, " ")
+    .replace(/\((\d+)\)/g, "")
+    .replace(/\bview\s*\d+\b/gi, "")
+    .replace(/\b(WA|NJ|UT|GA|CA)\b/g, "")
+    .replace(/\s+,/g, ",")
+    .replace(/,+/g, ",")
+    .replace(/\s{2,}/g, " ")
+    .replace(/(^[\s,-]+|[\s,-]+$)/g, "")
+    .trim();
+}
+
+function buildProjects(
+  imageSrcs: readonly string[],
+  category: Exclude<Category, "All">,
+  startId: number
+) {
+  return imageSrcs.map((imageSrc, index) => ({
+    id: startId + index,
+    title: formatProjectTitle(imageSrc),
+    category,
+    imageSrc,
+  }));
 }
 
 const PROJECTS: Project[] = [
-  { id: 1, title: "The Meridian Penthouse", location: "New York, NY", category: "Residential", sqft: "4,200", year: "2024" },
-  { id: 2, title: "Sonder Boutique Hotel", location: "Miami, FL", category: "Hospitality", sqft: "12,000", year: "2024" },
-  { id: 3, title: "Lakeview Corporate HQ", location: "Chicago, IL", category: "Commercial", sqft: "8,500", year: "2023" },
-  { id: 4, title: "Pacific Heights Residence", location: "San Francisco, CA", category: "Residential", sqft: "3,100", year: "2023" },
-  { id: 5, title: "The Parlor Restaurant", location: "Los Angeles, CA", category: "Hospitality", sqft: "2,400", year: "2023" },
-  { id: 6, title: "Harbor View Loft", location: "Boston, MA", category: "Residential", sqft: "1,900", year: "2023" },
-  { id: 7, title: "West End Townhouse", location: "Dallas, TX", category: "Residential", sqft: "5,600", year: "2022" },
-  { id: 8, title: "Cascade Creative Studio", location: "Seattle, WA", category: "Commercial", sqft: "3,800", year: "2022" },
-  { id: 9, title: "Penthouse 3D Concept", location: "New York, NY", category: "3D Renders", sqft: "2,700", year: "2024" },
+  ...buildProjects(RESIDENTIAL_IMAGE_SRCS, "Residential", 1),
+  ...buildProjects(COMMERCIAL_IMAGE_SRCS, "Commercial", 100),
+  ...buildProjects(RENDER_IMAGE_SRCS, "3D Renders", 200),
 ];
 
 export default function PortfolioClient() {
@@ -41,8 +100,18 @@ export default function PortfolioClient() {
   return (
     <>
       {/* ── PAGE HERO ───────────────────────────────────── */}
-      <section className="w-full bg-brand-charcoal pt-[72px]">
-        <SectionWrapper className="py-24 lg:py-36">
+      <section className="relative w-full overflow-hidden bg-brand-charcoal pt-[72px]">
+        <Image
+          src="/images/projects/project-hero.webp"
+          alt="ATVAGA portfolio residential design project"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,7,7,0.8)_0%,rgba(7,7,7,0.68)_28%,rgba(7,7,7,0.38)_44%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_38%,rgba(7,7,7,0.22),transparent_34%)]" />
+        <SectionWrapper className="relative z-10 py-24 lg:py-36">
           <span className="eyebrow">Our Work</span>
           <h1 className="mt-5 max-w-2xl text-brand-white">
             Portfolio
@@ -89,34 +158,21 @@ export default function PortfolioClient() {
                 key={project.id}
                 className="group flex flex-col"
               >
-                <div className="overflow-hidden">
-                  <div>
-                    <ImagePlaceholder
-                      label={project.title}
-                      aspectRatio="aspect-[3/2]"
+                <div className="overflow-hidden bg-brand-gray-light">
+                  <div className="relative aspect-[3/2]">
+                    <Image
+                      src={project.imageSrc}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>
                 </div>
                 <div className="mt-4 flex flex-col">
-                  <div className="flex items-start justify-between gap-2">
-                    <h2 className="font-italiana text-xl text-brand-black">
-                      {project.title}
-                    </h2>
-                    <span className="shrink-0 font-manrope text-[0.6rem] font-semibold uppercase tracking-widest text-brand-pink">
-                      {project.year}
-                    </span>
-                  </div>
-                  <p className="mt-1 font-manrope text-xs uppercase tracking-widest text-brand-gray">
-                    {project.location}
-                  </p>
-                  <div className="mt-3 flex items-center justify-between border-t border-brand-gray-light pt-3">
-                    <span className="font-manrope text-xs text-brand-gray">
-                      {project.sqft} sq ft · {project.category}
-                    </span>
-                    <span className="font-manrope text-[0.65rem] font-semibold uppercase tracking-widest text-brand-black">
-                      View →
-                    </span>
-                  </div>
+                  <h2 className="font-italiana text-xl text-brand-black">
+                    {project.title}
+                  </h2>
                 </div>
               </article>
             ))}

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import StructuredData from "@/components/seo/StructuredData";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import Button from "@/components/ui/Button";
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
-import { servicesMetadata } from "@/app/metadata";
+import { buildBreadcrumbSchema, servicesMetadata } from "@/app/metadata";
 
 export const metadata: Metadata = servicesMetadata;
 
@@ -35,6 +36,7 @@ const SERVICES = [
     title: "3D Rendering & Visualisation",
     description:
       "Photorealistic renders and walkthroughs that let you see — and feel — your space before a single item is purchased or a single wall is painted.",
+    href: "/3d-rendering",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
         <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
@@ -81,9 +83,39 @@ const SERVICES = [
   },
 ];
 
+const servicesPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "ATVAGA Services",
+  description: servicesMetadata.description,
+  url: "https://atvagadesigns.com/services",
+  isPartOf: {
+    "@id": "https://atvagadesigns.com#website",
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: SERVICES.map(({ title, description }, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: title,
+      description,
+    })),
+  },
+};
+
 export default function ServicesPage() {
   return (
     <>
+      <StructuredData
+        data={[
+          servicesPageSchema,
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+          ]),
+        ]}
+      />
+
       {/* ── PAGE HERO ───────────────────────────────────── */}
       <section className="w-full bg-brand-white pt-[72px]">
         <SectionWrapper className="py-24 lg:py-36">
@@ -103,7 +135,7 @@ export default function ServicesPage() {
       <section className="w-full bg-brand-gray-light py-16 lg:py-24">
         <SectionWrapper>
           <div className="grid grid-cols-1 gap-0 border border-brand-gray/20 md:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map(({ title, description, icon }, i) => (
+            {SERVICES.map(({ title, description, icon, href }, i) => (
               <article
                 key={title}
                 className={[
@@ -124,10 +156,45 @@ export default function ServicesPage() {
                 </p>
                 <div className="mt-6">
                   <Link
-                    href="/contact"
+                    href={href ?? "/contact"}
                     className="font-manrope text-[0.65rem] font-semibold uppercase tracking-widest text-brand-pink group-hover:text-brand-pink"
                   >
-                    Enquire →
+                    {href ? "Explore Service →" : "Enquire →"}
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </SectionWrapper>
+      </section>
+
+      <section className="w-full bg-brand-white py-20 lg:py-24">
+        <SectionWrapper>
+          <div className="section-intro flex flex-col items-center text-center">
+            <span className="eyebrow">Specialized Services</span>
+            <h2 className="mt-5 text-brand-black">
+              Explore Dedicated Service Page
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-1">
+            {[
+              {
+                title: "3D Rendering",
+                body: "Presentation-ready 3D visuals, modeling, and animation support for design approvals, client reviews, and project marketing.",
+                href: "/3d-rendering",
+              },
+            ].map(({ title, body, href }) => (
+              <article key={href} className="border border-brand-gray-light bg-brand-gray-light/35 p-8 lg:p-10">
+                <h3 className="text-brand-black">{title}</h3>
+                <p className="mt-4 font-manrope text-sm leading-relaxed text-brand-gray">
+                  {body}
+                </p>
+                <div className="mt-6">
+                  <Link
+                    href={href}
+                    className="font-manrope text-[0.68rem] font-semibold uppercase tracking-widest text-brand-pink"
+                  >
+                    Open Page →
                   </Link>
                 </div>
               </article>
@@ -174,8 +241,24 @@ export default function ServicesPage() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <ImagePlaceholder label="Render A" aspectRatio="aspect-[3/4]" />
-            <ImagePlaceholder label="Render B" aspectRatio="aspect-[3/4] mt-8" />
+            <div className="relative aspect-[3/4] overflow-hidden bg-brand-black/20">
+              <Image
+                src="/images/projects/3d-renders/Upper_Saddle_River,_NJ.webp"
+                alt="3D exterior rendering presentation by ATVAGA"
+                fill
+                sizes="(max-width: 1024px) 50vw, 24vw"
+                className="object-cover object-center"
+              />
+            </div>
+            <div className="relative mt-8 aspect-[3/4] overflow-hidden bg-brand-black/20">
+              <Image
+                src="/images/projects/residential/Modern_Villa_Pena,_Atlanta,_GA_(1).webp"
+                alt="Residential design presentation image used across ATVAGA services"
+                fill
+                sizes="(max-width: 1024px) 50vw, 24vw"
+                className="object-cover object-center"
+              />
+            </div>
           </div>
         </SectionWrapper>
       </section>

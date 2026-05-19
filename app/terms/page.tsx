@@ -1,9 +1,8 @@
+import type { Metadata } from "next";
 import SectionWrapper from "@/components/ui/SectionWrapper";
+import { termsMetadata } from "@/app/metadata";
 
-export const metadata = {
-  title: "Terms & Procedure",
-  description: "Terms & Procedure for ATVAGA LLC services."
-};
+export const metadata: Metadata = termsMetadata;
 
 export default function TermsPage() {
   return (

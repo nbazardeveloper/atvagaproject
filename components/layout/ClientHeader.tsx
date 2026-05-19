@@ -1,10 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-const Header = dynamic(() => import("@/components/layout/Header"), {
-  ssr: false,
-});
+import Header from "@/components/layout/Header";
 
 export default function ClientHeader() {
   return <Header />;
